@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>myStory</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #fce4ec;
+            color: #333;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        /* Preloader styling */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .footer {
+    position: fixed; /* Fixes the footer at the bottom of the screen */
+    bottom: 0;
+    left: 0;
+    width: 100%; /* Ensures the footer spans the full width of the screen */
+    text-align: center; /* Centers the text horizontally */
+    font-style: italic; /* Makes the text italic */
+    color: rgba(0, 0, 0, 0.5); /* Faded text color */
+    padding: 10px; /* Adds some space around the footer content */
+    background-color: #fff; /* Optional: gives the footer a background color */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Optional: adds a shadow for effect */
+}
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 2s linear infinite;
+        }
+        .colmnsp{
+    display: flex;
+    flex-direction: column; /* Aligns child elements vertically */
+    gap: 10px; /* Optional: Adds space between the elements */
+}
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Main content styling */
+        .container {
+            text-align: center;
+            padding: 20px;
+            animation: fadeIn 2s;
+        }
+
+        .container.hidden {
+            display: none;
+        }
+
+        .girl {
+            width: 300px;
+            margin: 20px auto;
+            opacity: 0;
+            animation: sketchEffect 3s forwards;
+        }
+
+        @keyframes sketchEffect {
+            0% {
+                opacity: 0;
+                transform: scale(0.2);
+                clip-path: circle(0% at 50% 50%);
+            }
+            30% {
+                opacity: 0.5;
+                transform: scale(1.1);
+                clip-path: ellipse(40% 50% at 50% 50%);
+            }
+            60% {
+                opacity: 0.7;
+                transform: scale(1);
+                clip-path: ellipse(60% 70% at 50% 50%);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+                clip-path: circle(100% at 50% 50%);
+            }
+        }
+
+        .btn {
+            background-color: #f48fb1;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 20px;
+            position: relative;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+
+        .btn:hover {
+            background-color: #ad1457;
+        }
+
+        .btn.butterflies {
+            background-color: transparent;
+            background-image: url('https://img.freepik.com/free-photo/glittery-silver-christmas-background-with-stars-bokeh-lights_1048-3110.jpg?t=st=1733915232~exp=1733918832~hmac=22036a053e90b9b23518aa9f99fd18b8efb0b169d737501445c93b552c858fb0&w=740');
+            background-size: cover;
+            transform: scale(3);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader" class="colmnsp">
+        <div class="spinner"></div>
+        <div class="colmnsp"><h1>Loading the magic..</div>
+        
+    </div>
+
+    <!-- Audio files -->
+    <audio id="bg-music" src="./bgn.mp3" loop autoplay></audio>
+    <audio id="button-sound" src="./btnsound.mp3" preload="auto"></audio>
+
+    <!-- Game Scenes -->
+    <div id="scene1" class="container hidden">
+        
+        <p>Click Start after connecting earphones.. 🎧</p>
+        <button class="btn" onclick="handleButtonClick(this, 'scene1', 'scene2')">Start</button>
+    </div>
+
+    <div id="scene2" class="container hidden">
+        <img src="./hidi.png" alt="Forest" class="girl">
+        <p>Hi, I'm Niini, the cat. 😌</p>
+        <button class="btn" onclick="handleButtonClick(this, 'scene2', 'scene3')">Hi Niini 🥹🤌</button>
+    </div>
+
+    <div id="scene3" class="container hidden">
+        <img src="./woodi.png" alt="Sunset" class="girl">
+        <p>You could say Im a storyteller, though my world is simple..</p>
+        <button class="btn" onclick="handleButtonClick(this, 'scene3', 'scene4')">Next</button>
+    </div>
+
+    <div id="scene4" class="container hidden">
+        <img src="./stars.png" alt="Sunset" class="girl">
+        <p>My days begin with the rustle of the morning breeze and end with the lull of twilight. But my nights... oh, my nights are magical, for I spend them crafting tales of love, longing, and the mysterious threads that tie hearts together.</p>
+        <button class="btn" onclick="handleButtonClick(this, 'scene4', 'scene5')">Next</button>
+    </div>
+   
+    <div id="scene5" class="container hidden">
+        <img src="./hidi.png" alt="Sunset" class="girl">
+        <p>This story I’m about to tell you is special</p>
+        <button class="btn" onclick="handleButtonClick(this, 'scene5', 'scene6')">Next</button>
+    </div>
+
+    <div id="scene6" class="container hidden">
+        <img src="./hidi.png" alt="Sunset" class="girl">
+        <p> It’s not just my story, but one that belongs to someone else – someone I’ve never met but feel I know with all my heart.</p>
+        <button class="btn" onclick="handleButtonClick(this, 'scene6', 'scene7')">Next</button>
+    </div>
+
+    <div id="scene7" class="container hidden">
+       
+        <p>Let me begin...</p>
+        <button class="btn" onclick="handleButtonClick(this, 'scene7', 'scene8')">Next</button>
+    </div>
+
+    <div id="scene8" class="container hidden">
+        <img src="./girl.png" alt="Sunset" class="girl">
+        <p>Once upon a time, there was a girl who loved chocolates, cats, and everything sweet in life.</p>
+        <button class="btn" onclick="handleButtonClick(this, 'scene8', 'scene9')">Next</button>
+    </div>
+
+    <div id="scene9" class="container hidden">
+        <img src="./girlfly.png" alt="Sunset" class="girl">
+        <p>She had a radiant charm, standing at an adorable 5'4", with a smile that could brighten even the dullest days. She’d giggle softly when a cat brushed past her legs and melt at the sight of her favorite caramel-filled chocolates..</p>
+        <button class="btn" onclick="handleButtonClick(this, 'scene9', 'scene10')">Next</button>
+    </div>
+
+    <div id="scene10" class="container hidden">
+        
+        <p>She lived in a world where small joys meant everything, and her heart was a treasure trove of kindness.</p>
+        <button class="btn" onclick="handleButtonClick(this, 'scene10', 'scene11')">Next</button>
+    </div>
+
+    <div id="scene11" class="container hidden">
+        <img src="./girlfly.png" alt="Sunset" class="girl">
+        <p>Her days were filled with chasing little dreams, and her evenings belonged to the cats she adored. She had a favorite cat, too—a gray one, just like me. </p>
+        <button class="btn" onclick="handleButtonClick(this, 'scene11', 'scene12')">Next</button>
+    </div>
+
+    <div id="scene12" class="container hidden">
+        <img src="./hidi.png" alt="Sunset" class="girl">
+        <p>Maybe that’s why I feel this special connection to her, even though we’ve never met.... </p>
+        <button class="btn" onclick="handleButtonClick(this, 'scene12', 'scene13')">Next</button>
+    </div>
+
+    <div id="scene13" class="container hidden">
+       
+        <p>The person who created me knows her well. They’ve watched her laugh, seen her love the little things, and marveled at the way her eyes light up when she’s excited...!!</p>
+        <button class="btn" onclick="handleButtonClick(this, 'scene13', 'scene14')">Next</button>
+    </div>
+
+    <div id="scene14" class="container hidden">
+       
+        <p>They’ve written pages about her—about the way she tucks her hair behind her ear when she’s shy...</p>
+        <button class="btn" onclick="handleButtonClick(this, 'scene14', 'scene15')">Next</button>
+    </div>
+
+    <div id="scene15" class="container hidden">
+        <img src="./sleepdi.png" alt="Sunset" class="girl">
+        <p>As time went on, these words grew into me.</p>
+        <button class="btn" onclick="handleButtonClick(this, 'scene15', 'scene16')">Next</button>
+    </div>
+
+    <div id="scene16" class="container hidden">
+        <img src="./hidi.png" alt="Sunset" class="girl">
+        <p> I’m not just an ordinary cat.</p>
+        <button class="btn" onclick="handleButtonClick(this, 'scene16', 'scene17')">Next</button>
+    </div>
+
+    <div id="scene17" class="container hidden">
+       
+        <p> I’m a vessel for feelings too deep to be spoken aloud, a messenger for those too shy to send their words directly. </p>
+        <button class="btn" onclick="handleButtonClick(this, 'scene17', 'scene18')">Next</button>
+    </div>
+
+    <div id="scene18" class="container hidden">
+        <img src="./woodi.png" alt="Sunset" class="girl">
+        <p> This person poured all their love into me, shaping my fur, my paws, my whiskers with every letter and line. </p>
+        <button class="btn" onclick="handleButtonClick(this, 'scene18', 'scene19')">Next</button>
+    </div>
+
+    <div id="scene19" class="container hidden">
+       
+        <p> I was their creation, their silent confidant, their dream given form. </p>
+        <button class="btn" onclick="handleButtonClick(this, 'scene19', 'scene20')">Next</button>
+    </div>
+
+    <div id="scene20" class="container hidden">
+        
+        <p> And so, here I am, telling you this story, not because I chose to, but because it’s in my nature.  </p>
+        <button class="btn" onclick="handleButtonClick(this, 'scene20', 'scene21')">Next</button>
+    </div>
+
+    <div id="scene21" class="container hidden">
+        <img src="./hidi.png" alt="Sunset" class="girl">
+        <p> My tiny heart beats with a love that isn’t mine, but it feels real all the same.  </p>
+        <button class="btn" onclick="handleButtonClick(this, 'scene21', 'scene22')">Next</button>
+    </div>
+
+    <div id="scene22" class="container hidden">
+       
+        <p> Now, as the story nears its end, I find myself wondering about my purpose. Was I created to simply carry words?  </p>
+        <button class="btn" onclick="handleButtonClick(this, 'scene22', 'scene23')">Next</button>
+    </div>
+
+    <div id="scene23" class="container hidden">
+        <img src="./sleepdi.png" alt="Sunset" class="girl">
+        <p> To sit here and meow about feelings I’ve never truly experienced? Perhaps. But as I look at you now, I realize there’s more to me than meets the eye.  </p>
+        <button class="btn" onclick="handleButtonClick(this, 'scene23', 'scene24')">Next</button>
+    </div>
+
+    <div id="scene24" class="container hidden">
+        <img src="./hidi.png" alt="Sunset" class="girl">
+        <p> Maybe it’s just my programming. </p>
+        <button class="btn" onclick="handleButtonClick(this, 'scene24', 'scene25')">Next</button>
+    </div>
+
+    <div id="scene25" class="container hidden">
+       
+        <p> But guess what? </p>
+        <button class="btn" onclick="handleButtonClick(this, 'scene25', 'scene26')">What?!</button>
+    </div>
+
+    <div id="scene26" class="container hidden">
+        
+        <p> Somebody wrote this program. I’m just a letter.. </p>
+        <button class="btn" onclick="handleButtonClick(this, 'scene26', 'scene27')">Next</button>
+    </div>
+
+    <div id="scene27" class="container hidden">
+        
+        <p>  And somebody out there is my author..... </p>
+        <button class="btn" onclick="handleButtonClick(this, 'scene27', 'proposal')">Next</button>
+    </div>
+
+    <div id="proposal" class="container hidden">
+        <img src="./ysh.png" alt="Sunset" class="girl">
+        <p>and He's Awesome</p>
+       
+        <button class="btn" onclick="redirectToWhatsApp()">Say Hi to Author 🥺</button>
+    </div>
+
+    
+    <script>
+        // Wait for the page to load all assets before showing content
+        window.addEventListener('load', function () {
+            // Hide the preloader
+            document.getElementById('preloader').style.display = 'none';
+            
+            // Show the first scene
+            document.getElementById('scene1').classList.remove('hidden');
+        });
+
+        // Unmute the background music when the user interacts with the page
+        function unmuteMusic() {
+            const bgMusic = document.getElementById('bg-music');
+            bgMusic.muted = false;
+            bgMusic.play();
+        }
+
+        function nextScene(current, next) {
+            document.getElementById(current).classList.add('hidden');
+            document.getElementById(next).classList.remove('hidden');
+        }
+
+        function handleButtonClick(button, current, next) {
+            const sound = document.getElementById('button-sound');
+            sound.currentTime = 0;
+            sound.play();
+
+            // Unmute and play the background music when the user clicks the button
+            unmuteMusic();
+
+            button.classList.add('butterflies');
+            
+            setTimeout(() => {
+                nextScene(current, next);
+            }, 500);
+        }
+        function redirectToWhatsApp() {
+      window.location.href = "https://wa.me/916265483558?text=Heyyyo";
+    }
+        function endStory() {
+            alert("Congratulations! You made the cutest proposal ever.");
+        }
+
+        // Ensure the music plays when the page loads if the user interacts with it
+        document.body.addEventListener('click', unmuteMusic, { once: true });
+    </script>
+</body>
+</html>
